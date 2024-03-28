@@ -1,0 +1,97 @@
+#root{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    flex-wrap:wrap;
+}
+.liste-title{
+    font-size: 40px;
+    margin: 20px;
+}
+img{
+    width: auto;
+    min-height: 201px;
+    border-radius: 5px;
+}
+.anime{
+    margin: 20px;
+    width: 142px;
+    height: 221px;
+    /* border: 1px solid black; */
+    display: block;
+    overflow: hidden;
+    position: relative; /* Ajout de la propriété position relative */
+}
+.title{
+    font-size: 12px;
+}
+.date{
+    font-size: 15px;
+    margin-bottom: 38px;
+    margin-left: 5px;
+    position: absolute; /* Ajout de la propriété position absolute */
+    bottom: 14px;
+    padding: 0px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+}
+.episode{
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    position: absolute; /* Ajout de la propriété position absolute */
+    bottom: 14px;
+    padding: 0px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+}
+.saison{
+    font-size: 15px;
+    margin-bottom: 10px;
+    right: 5px;
+    position: absolute; /* Ajout de la propriété position absolute */
+    bottom: 14px;
+    padding: 0px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+}
+.langue{
+    font-size: 15px;
+    top: 4px;
+    right: 5px;
+    position: absolute; /* Ajout de la propriété position absolute */
+    padding: 0px 4px 2px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+}
+.liste-button-semaine{
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    
+    margin: 20px;
+}
+li{
+    padding: 4px 10px;
+    background-color: #eb1b31;
+    list-style-type: none;
+    margin: 10px;
+    border-radius: 10px;
+}
+li:hover{
+    background-color: #fb3b55;
+    cursor: pointer;
+}
+body{
+    background-color: #1e222c;
+    color: #f1f1f1;
+    font-style: bold;
+}

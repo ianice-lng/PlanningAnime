@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <h1 class="liste-title">Liste des sorties d'anime de la semaine</h1>
+    <ul class="liste-button-semaine">
+        <li class="">
+            <button onclick="rechercheDay('lundi')" class="">Lundi</button>
+        </li>
+        <li class="">
+            <button onclick="rechercheDay('mardi')" class="">Mardi</button>
+        </li>
+        <li class="">
+            <button onclick="rechercheDay('mercredi')" class="">Mercredi</button>
+        </li>
+        <li class="">
+            <button onclick="rechercheDay('jeudi')" class="">Jeudi</button>
+        </li>
+        <li class="">
+            <button onclick="rechercheDay('vendredi')" class="">Vendredi</button>
+        </li>
+        <li class="">
+            <button onclick="rechercheDay('samedi')" class="">Samedi</button>
+        </li>
+        <li>
+            <button onclick="rechercheDay('dimanche')" class="">Dimanche</button>
+        </li>
+    </ul>
+    <div id="root" >
+    </div>
+    <script>
+        const data = async (day) => {
+    const response = await fetch("https://api.franime.fr/api/calendrier_data")
+    const json = await response.json()
+    // console.log(json)
+    const DivRootNode = document.querySelector("#root")
+    DivRootNode.textContent = ""
+    json.data.forEach(anime => {
+    // Système d'ajout d'anime dans le DOM en fonction du jour voulu
+        
+        if(anime.jour === day){
+            const aAnime = document.createElement("a")
+            const img = document.createElement("img")
+            img.src = anime.affiche
+            aAnime.className = "anime"
+            aAnime.href = anime.url_access_anime_page
+            const h1Title = document.createElement("p")
+            h1Title.className = "title" 
+            const titleAnime = anime.title_anime
+            const date = document.createElement("p")
+            date.className = "date"
+            date.textContent = `${anime.heures}h${anime.minutes}`
+            const numEpisode = document.createElement("p")
+            numEpisode.className = "episode"
+            numEpisode.textContent = `Episode ${anime.prochain_ep}`
+            const saison = document.createElement("p")
+            saison.className = "saison"
+            saison.textContent = `S${anime.saison}`
+            const langue = document.createElement("p")
+            langue.className = "langue" 
+            langue.textContent = anime.lang.toUpperCase()
+            if(titleAnime.length <= 22){
+            h1Title.textContent = titleAnime}
+            else{
+                h1Title.textContent = `${titleAnime.substr(0,26)} ...`
+            }
+            aAnime.appendChild(langue)
+            aAnime.appendChild(date)
+            aAnime.appendChild(numEpisode)
+            aAnime.appendChild(saison)
+            aAnime.appendChild(img)
+            aAnime.appendChild(h1Title)
+            DivRootNode.appendChild(aAnime)
+        }
+    })
+}
+data("lundi")
+
+    
+const rechercheDay = (day) => {
+    data(day);
+}
+    </script>
+</body>
+</html>
