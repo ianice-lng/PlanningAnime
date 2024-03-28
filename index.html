@@ -56,7 +56,8 @@
             const titleAnime = anime.title_anime
             const date = document.createElement("p")
             date.className = "date"
-            date.textContent = `${anime.heures}h${anime.minutes}`
+            
+            date.textContent = `${anime.heures}h${anime.minutes < 10 ? "0" + anime.minutes : anime.minutes}`
             const numEpisode = document.createElement("p")
             numEpisode.className = "episode"
             numEpisode.textContent = `Episode ${anime.prochain_ep}`
