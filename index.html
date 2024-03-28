@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planning</title>
+    <title>Planning Anime</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
    
@@ -51,6 +51,7 @@
             img.src = anime.affiche
             aAnime.className = "anime"
             aAnime.href = anime.url_access_anime_page
+            aAnime.target = "_blank"
             const h1Title = document.createElement("p")
             h1Title.className = "title" 
             const titleAnime = anime.title_anime
