@@ -12,13 +12,13 @@
     <h1 class="liste-title">Liste des sorties d'anime de la semaine</h1>
     <ul class="liste-button-semaine">
         <li class="">
-            <button onclick="rechercheDay('lundi')" class="">Lundi</button>
+            <button class="active" onclick="rechercheDay('lundi')" class="">Lundi</button>
         </li>
         <li class="">
             <button onclick="rechercheDay('mardi')" class="">Mardi</button>
         </li>
         <li class="">
-            <button onclick="rechercheDay('mercredi')" class="">Mercredi</button>
+            <button  onclick="rechercheDay('mercredi')" class="">Mercredi</button>
         </li>
         <li class="">
             <button onclick="rechercheDay('jeudi')" class="">Jeudi</button>
@@ -36,10 +36,10 @@
     <div id="root" >
     </div>
     <script>
+    //Fonction pour récupérer les données de l'API FRAnime  
         const data = async (day) => {
     const response = await fetch("https://api.franime.fr/api/calendrier_data")
     const json = await response.json()
-    // console.log(json)
     const DivRootNode = document.querySelector("#root")
     DivRootNode.textContent = ""
     json.data.forEach(anime => {
@@ -57,7 +57,6 @@
             const titleAnime = anime.title_anime
             const date = document.createElement("p")
             date.className = "date"
-            
             date.textContent = `${anime.heures}h${anime.minutes < 10 ? "0" + anime.minutes : anime.minutes}`
             const numEpisode = document.createElement("p")
             numEpisode.className = "episode"
@@ -68,24 +67,41 @@
             const langue = document.createElement("p")
             langue.className = "langue" 
             langue.textContent = anime.lang.toUpperCase()
+            // Limiter le nombre de caractères du titre
             if(titleAnime.length <= 22){
             h1Title.textContent = titleAnime}
             else{
                 h1Title.textContent = `${titleAnime.substr(0,26)} ...`
             }
-            aAnime.appendChild(langue)
-            aAnime.appendChild(date)
-            aAnime.appendChild(numEpisode)
-            aAnime.appendChild(saison)
-            aAnime.appendChild(img)
+
+            //modifier le DOM
+            const divImage = document.createElement("div")
+            divImage.className = "divImage"
+
+            divImage.appendChild(langue)
+            divImage.appendChild(date)
+            divImage.appendChild(numEpisode)
+            divImage.appendChild(saison)
+            divImage.appendChild(img)
+            aAnime.appendChild(divImage)
             aAnime.appendChild(h1Title)
             DivRootNode.appendChild(aAnime)
         }
     })
 }
+//Afficher les animes de lundi par défaut
 data("lundi")
-
-    
+//Ajouter la classe active au bouton cliqué
+const buttons = document.querySelectorAll("button")
+buttons.forEach(button => {
+    button.addEventListener("click", (buttonSelect) => {
+        buttons.forEach(button => {
+            button.className = ""
+        })
+        buttonSelect.target.className = "active"
+    })
+})
+//Fonction de recherche des animes en fonction du jour
 const rechercheDay = (day) => {
     data(day);
 }

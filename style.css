@@ -1,7 +1,6 @@
 #root{
     display: flex;
     justify-content: center;
-    height: 100vh;
     flex-wrap:wrap;
 }
 .liste-title{
@@ -13,64 +12,61 @@ img{
     min-height: 201px;
     border-radius: 5px;
 }
+img:hover{
+    transition-duration: 0.5s;
+    transform: scale(1.1);
+    max-height: 201px;
+    z-index: 0;
+}
+.divImage{
+    overflow: hidden;
+}
 .anime{
     margin: 20px;
     width: 142px;
     height: 221px;
-    /* border: 1px solid black; */
     display: block;
     overflow: hidden;
     position: relative; /* Ajout de la propriété position relative */
 }
+
 .title{
     font-size: 12px;
 }
-.date{
+.date, .episode, .saison{
     font-size: 15px;
+    position: absolute; /* Ajout de la propriété position absolute */
+    bottom: 14px;
+    padding: 0px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+    z-index: 1;
+}
+.date{
     margin-bottom: 38px;
     margin-left: 5px;
-    position: absolute; /* Ajout de la propriété position absolute */
-    bottom: 14px;
-    padding: 0px 4px;
-    text-align: center;
-    background-color: rgba(30,34,44,.9);
-    color: white;
-    border-radius: 5px;
 }
 .episode{
-    font-size: 15px;
     margin-bottom: 10px;
     margin-left: 5px;
-    position: absolute; /* Ajout de la propriété position absolute */
-    bottom: 14px;
-    padding: 0px 4px;
-    text-align: center;
-    background-color: rgba(30,34,44,.9);
-    color: white;
-    border-radius: 5px;
 }
 .saison{
-    font-size: 15px;
     margin-bottom: 10px;
     right: 5px;
-    position: absolute; /* Ajout de la propriété position absolute */
-    bottom: 14px;
-    padding: 0px 4px;
-    text-align: center;
-    background-color: rgba(30,34,44,.9);
-    color: white;
-    border-radius: 5px;
 }
 .langue{
     font-size: 15px;
     top: 4px;
     right: 5px;
-    position: absolute; /* Ajout de la propriété position absolute */
-    padding: 0px 4px 2px 4px;
+    position: absolute;
+    padding: 0px 4px 0px 4px;
     text-align: center;
     background-color: rgba(30,34,44,.9);
     color: white;
     border-radius: 5px;
+    z-index: 1;
 }
 .liste-button-semaine{
     display: flex;
@@ -80,15 +76,24 @@ img{
     margin: 20px;
 }
 li{
+    list-style-type: none;
+}
+button{
     padding: 4px 10px;
     background-color: #eb1b31;
-    list-style-type: none;
     margin: 10px;
     border-radius: 10px;
 }
-li:hover{
+
+button:hover{
     background-color: #fb3b55;
     cursor: pointer;
+}
+.active{
+    background-color: #b40a21;
+}
+.active:hover{
+    background-color: #b40a21;
 }
 body{
     background-color: #1e222c;
