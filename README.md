@@ -17,7 +17,3 @@ Ce projet est un site web pour répertorier tous les animes qui sortent de la se
 ## Auteur
 Ce site WEB a été réalisé par Zaphir et est disponible sur [GitHub](https://github.com/zaphir21).
 L'API utilisé vient du site [FRAnime](https://franime.fr/)
-
-## Licence
-
-Ce site WEB est sous licence [MIT](LICENSE).
