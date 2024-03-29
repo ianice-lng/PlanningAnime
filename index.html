@@ -35,6 +35,10 @@
     </ul>
     <div id="root" >
     </div>
+    <footer>
+        <p>© 2024 - Réalisé par Zaphir<br>L'API utilisé pour faire ce planning est l'API de FRAnime<br>Hébergé par Github Page</p>
+        <a href="https://github.com/zaphir21" target="_blank"><img src="github.svg" alt="logo github" class="logo"></a>
+    </footer>
     <script>
     //Fonction pour récupérer les données de l'API FRAnime  
         const data = async (day) => {
@@ -49,6 +53,7 @@
             const aAnime = document.createElement("a")
             const img = document.createElement("img")
             img.src = anime.affiche
+            img.className = "affiche"
             aAnime.className = "anime"
             aAnime.href = anime.url_access_anime_page
             aAnime.target = "_blank"
