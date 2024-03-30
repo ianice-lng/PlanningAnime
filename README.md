@@ -7,7 +7,7 @@ Ce projet est un site web pour répertorier tous les animes qui sortent de la se
 - Tri des animes par horaire de diffusion.
 - Tri des animes la liste par langue VF ou VOSTFR ou VOSTFR **&** VF
 - Accès direct aux pages d'FRAnime pour chaques anime
-- Le site est responsive 
+- Le site est responsive
 
 ## Installation
 1. Clonez ce dépôt sur votre machine locale :
