@@ -79,22 +79,47 @@ img.affiche:hover{
 li{
     list-style-type: none;
 }
-button{
+ul button{
     padding: 4px 10px;
     background-color: #eb1b31;
     margin: 10px;
     border-radius: 10px;
 }
-
-button:hover{
+ul button:hover{
     background-color: hsl(352, 96%, 61%);
     cursor: pointer;
 }
-.active{
+
+.activeDay{
     background-color: #b40a21;
 }
-.active:hover{
+.activeDay:hover{
     background-color: #b40a21;
+}
+.langChoice{
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    margin: 20px;
+}
+.langChoice button{
+    background-color: rgba(30,34,44,0.6);
+    width: 151px;
+    height: 34px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.langChoice button:hover{
+    background-color: rgba(30,34,44,0.8);
+    cursor: pointer;
+}
+.langChoice .activeLangue{
+    background-color: #eb1b31;
+}
+.langChoice .activeLangue:hover{
+    background-color: #eb1b31;
+    cursor: default;
 }
 body{
     background-color: #17191f;
@@ -128,6 +153,6 @@ img.logo {
         }
     
         .anime {
-            margin: 10px;
+            margin: 10pxul ;
         }
     }

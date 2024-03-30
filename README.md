@@ -5,6 +5,7 @@ Ce projet est un site web pour répertorier tous les animes qui sortent de la se
 ## Fonctionnalités
 - Affichage des sorties d'épisodes pour chaque jour de la semaine.
 - Tri des animes par horaire de diffusion.
+- Tri des animes la liste par langue VF ou VOSTFR ou VOSTFR **&** VF
 - Accès direct aux pages d'FRAnime pour chaques anime
 
 ## Installation

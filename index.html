@@ -12,27 +12,32 @@
     <h1 class="liste-title">Liste des sorties d'anime de la semaine</h1>
     <ul class="liste-button-semaine">
         <li class="">
-            <button class="active" onclick="rechercheDay('lundi')" class="">Lundi</button>
+            <button class="activeDay" onclick="selectDay('lundi');data()" class="">Lundi</button>
         </li>
         <li class="">
-            <button onclick="rechercheDay('mardi')" class="">Mardi</button>
+            <button onclick="selectDay('mardi');data()" class="">Mardi</button>
         </li>
         <li class="">
-            <button  onclick="rechercheDay('mercredi')" class="">Mercredi</button>
+            <button  onclick="selectDay('mercredi');data()" class="">Mercredi</button>
         </li>
         <li class="">
-            <button onclick="rechercheDay('jeudi')" class="">Jeudi</button>
+            <button onclick="selectDay('jeudi');data()" class="">Jeudi</button>
         </li>
         <li class="">
-            <button onclick="rechercheDay('vendredi')" class="">Vendredi</button>
+            <button onclick="selectDay('vendredi');data()" class="">Vendredi</button>
         </li>
         <li class="">
-            <button onclick="rechercheDay('samedi')" class="">Samedi</button>
+            <button onclick="selectDay('samedi');data()" class="">Samedi</button>
         </li>
         <li>
-            <button onclick="rechercheDay('dimanche')" class="">Dimanche</button>
+            <button onclick="selectDay('dimanche');data()" class="">Dimanche</button>
         </li>
     </ul>
+    <div class="langChoice">
+        <button onclick="langChoice = '';data()" class="activeLangue">VOSTFR <strong>&</strong> VF</button>
+        <button onclick="langChoice = 'VO';data()">VOSTFR</button>
+        <button onclick="langChoice = 'VF';data()">VF</button>
+    </div>
     <div id="root" >
     </div>
     <footer>
@@ -40,8 +45,10 @@
         <a href="https://github.com/zaphir21" target="_blank"><img src="github.svg" alt="logo github" class="logo"></a>
     </footer>
     <script>
+        let langChoice = "" 
+        let dayChoice = "lundi"
     //Fonction pour récupérer les données de l'API FRAnime  
-        const data = async (day) => {
+        const data = async () => {
     const response = await fetch("https://api.franime.fr/api/calendrier_data")
     const json = await response.json()
     const DivRootNode = document.querySelector("#root")
@@ -49,7 +56,7 @@
     json.data.forEach(anime => {
     // Système d'ajout d'anime dans le DOM en fonction du jour voulu
         
-        if(anime.jour === day){
+        if(anime.jour === dayChoice){
             const aAnime = document.createElement("a")
             const img = document.createElement("img")
             img.src = anime.affiche
@@ -90,25 +97,39 @@
             divImage.appendChild(img)
             aAnime.appendChild(divImage)
             aAnime.appendChild(h1Title)
-            DivRootNode.appendChild(aAnime)
+            if(langChoice === anime.lang.toUpperCase() || langChoice === ""){
+                DivRootNode.appendChild(aAnime)
+
+            }
         }
     })
 }
-//Afficher les animes de lundi par défaut
-data("lundi")
-//Ajouter la classe active au bouton cliqué
-const buttons = document.querySelectorAll("button")
-buttons.forEach(button => {
+//Afficher les animes
+data()
+//Ajouter la classe activeDay au bouton cliqué
+const buttonsDay = document.querySelectorAll("ul button")
+buttonsDay.forEach(button => {
     button.addEventListener("click", (buttonSelect) => {
-        buttons.forEach(button => {
-            button.className = ""
+        buttonsDay.forEach(button => {
+            button.className = button.className.replace("activeDay", "")
+           
+
         })
-        buttonSelect.target.className = "active"
+        buttonSelect.target.className = button.className + " activeDay"
+    })
+})
+const buttonsLang = document.querySelectorAll(".langChoice button")
+buttonsLang.forEach(button => {
+    button.addEventListener("click", (buttonSelect) => {
+        buttonsLang.forEach(button => {
+            button.className = button.className.replace("activeLangue", "")
+        })
+        buttonSelect.target.className = button.className + " activeLangue"
     })
 })
 //Fonction de recherche des animes en fonction du jour
-const rechercheDay = (day) => {
-    data(day);
+const selectDay = (day) => {
+    dayChoice = day
 }
     </script>
 </body>
