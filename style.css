@@ -143,7 +143,7 @@ img.logo {
     width: 70px;
     height: 70px;
 }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 360px) {
         .liste-title {
             font-size: 30px; /* Réduire la taille du titre pour mieux s'adapter aux petits écrans */
         }
@@ -153,6 +153,6 @@ img.logo {
         }
     
         .anime {
-            margin: 10pxul ;
+            margin: 8px ;
         }
     }
