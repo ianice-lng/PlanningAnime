@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,29 +13,30 @@
     <meta name="twitter:image" content="https://zaphir21.github.io/PlanningAnime/image-site.png">
     <meta name="theme-color" content="#911313">
 </head>
+
 <body>
     <h1 class="liste-title">Liste des sorties d'anime de la semaine</h1>
     <ul class="liste-button-semaine">
         <li class="">
-            <button class="activeDay" onclick="selectDay('lundi');data()" class="">Lundi</button>
+            <button onclick="selectDay('lundi');data()" class="lundi">Lundi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('mardi');data()" class="">Mardi</button>
+            <button onclick="selectDay('mardi');data()" class="mardi">Mardi</button>
         </li>
         <li class="">
-            <button  onclick="selectDay('mercredi');data()" class="">Mercredi</button>
+            <button onclick="selectDay('mercredi');data()" class="mercredi">Mercredi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('jeudi');data()" class="">Jeudi</button>
+            <button onclick="selectDay('jeudi');data()" class="jeudi">Jeudi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('vendredi');data()" class="">Vendredi</button>
+            <button onclick="selectDay('vendredi');data()" class="vendredi">Vendredi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('samedi');data()" class="">Samedi</button>
+            <button onclick="selectDay('samedi');data()" class="samedi">Samedi</button>
         </li>
         <li>
-            <button onclick="selectDay('dimanche');data()" class="">Dimanche</button>
+            <button onclick="selectDay('dimanche');data()" class="dimanche">Dimanche</button>
         </li>
     </ul>
     <div class="langChoice">
@@ -42,99 +44,136 @@
         <button onclick="langChoice = 'VO';data()">VOSTFR</button>
         <button onclick="langChoice = 'VF';data()">VF</button>
     </div>
-    <div id="root" >
+    <div id="root">
     </div>
     <footer>
-        <p>© 2024 - Réalisé par Zaphir<br>L'API utilisé pour faire ce planning est l'API de FRAnime<br>Hébergé par Github Page</p>
+        <p>© 2024 - Réalisé par Zaphir<br>L'API utilisé pour faire ce planning est l'API de FRAnime<br>Hébergé par
+            Github Page</p>
         <a href="https://github.com/zaphir21" target="_blank"><img src="github.svg" alt="logo github" class="logo"></a>
     </footer>
     <script>
-        let langChoice = "" 
-        let dayChoice = "lundi"
-    //Fonction pour récupérer les données de l'API FRAnime  
-        const data = async () => {
-    const response = await fetch("https://api.franime.fr/api/calendrier_data")
-    const json = await response.json()
-    const DivRootNode = document.querySelector("#root")
-    DivRootNode.textContent = ""
-    json.data.forEach(anime => {
-    // Système d'ajout d'anime dans le DOM en fonction du jour voulu
-        
-        if(anime.jour === dayChoice){
-            const aAnime = document.createElement("a")
-            const img = document.createElement("img")
-            img.src = anime.affiche
-            img.className = "affiche"
-            aAnime.className = "anime"
-            aAnime.href = anime.url_access_anime_page
-            aAnime.target = "_blank"
-            const h1Title = document.createElement("p")
-            h1Title.className = "title" 
-            const titleAnime = anime.title_anime
-            const date = document.createElement("p")
-            date.className = "date"
-            date.textContent = `${anime.heures}h${anime.minutes < 10 ? "0" + anime.minutes : anime.minutes}`
-            const numEpisode = document.createElement("p")
-            numEpisode.className = "episode"
-            numEpisode.textContent = `Episode ${anime.prochain_ep}`
-            const saison = document.createElement("p")
-            saison.className = "saison"
-            saison.textContent = `S${anime.saison}`
-            const langue = document.createElement("p")
-            langue.className = "langue" 
-            langue.textContent = anime.lang.toUpperCase()
-            // Limiter le nombre de caractères du titre
-            if(titleAnime.length <= 22){
-            h1Title.textContent = titleAnime}
-            else{
-                h1Title.textContent = `${titleAnime.substr(0,26)} ...`
-            }
-
-            //modifier le DOM
-            const divImage = document.createElement("div")
-            divImage.className = "divImage"
-
-            divImage.appendChild(langue)
-            divImage.appendChild(date)
-            divImage.appendChild(numEpisode)
-            divImage.appendChild(saison)
-            divImage.appendChild(img)
-            aAnime.appendChild(divImage)
-            aAnime.appendChild(h1Title)
-            if(langChoice === anime.lang.toUpperCase() || langChoice === ""){
-                DivRootNode.appendChild(aAnime)
-
-            }
+        const date = new Date()
+        let langChoice = ""
+        let dayChoice = ""
+        //Récupérer le jour actuel
+        switch (date.getDay()) {
+            case 0:
+                dayChoice = "dimanche"
+                break
+            case 1:
+                dayChoice = "lundi"
+                break
+            case 2:
+                dayChoice = "mardi"
+                break
+            case 3:
+                dayChoice = "mercredi"
+                break
+            case 4:
+                dayChoice = "jeudi"
+                break
+            case 5:
+                dayChoice = "vendredi"
+                break
+            case 6:
+                dayChoice = "samedi"
+                break
         }
-    })
-}
-//Afficher les animes
-data()
-//Ajouter la classe activeDay au bouton cliqué
-const buttonsDay = document.querySelectorAll("ul button")
-buttonsDay.forEach(button => {
-    button.addEventListener("click", (buttonSelect) => {
-        buttonsDay.forEach(button => {
-            button.className = button.className.replace("activeDay", "")
-           
+        const button = document.querySelector(`.${dayChoice}`)
+        button.className = button.className + " activeDay"
+        //Fonction pour récupérer les données de l'API FRAnime  
+        const data = async () => {
+            const response = await fetch("https://api.franime.fr/api/calendrier_data")
+            const json = await response.json()
+            const DivRootNode = document.querySelector("#root")
+            DivRootNode.textContent = ""
+            const dayAnimes = json.data.filter(anime => anime.jour === dayChoice);
+            dayAnimes.sort((a, b) => {
+                const timeA = a.heures * 60 + a.minutes;
+                const timeB = b.heures * 60 + b.minutes;
+                return timeA - timeB;
+            });
+            dayAnimes.forEach(anime => {
+                // Système d'ajout d'anime dans le DOM en fonction du jour voulu
 
+                if (anime.jour === dayChoice) {
+
+                    const aAnime = document.createElement("a")
+                    const img = document.createElement("img")
+                    img.src = anime.affiche
+                    img.className = "affiche"
+                    aAnime.className = "anime"
+                    aAnime.href = anime.url_access_anime_page
+                    aAnime.target = "_blank"
+                    const h1Title = document.createElement("p")
+                    h1Title.className = "title"
+                    const titleAnime = anime.title_anime
+                    const date = document.createElement("p")
+                    date.className = "date"
+                    date.textContent = `${anime.heures}h${anime.minutes < 10 ? "0" + anime.minutes : anime.minutes}`
+                    const numEpisode = document.createElement("p")
+                    numEpisode.className = "episode"
+                    numEpisode.textContent = `Episode ${anime.prochain_ep}`
+                    const saison = document.createElement("p")
+                    saison.className = "saison"
+                    saison.textContent = `S${anime.saison}`
+                    const langue = document.createElement("p")
+                    langue.className = "langue"
+                    langue.textContent = anime.lang.toUpperCase()
+                    // Limiter le nombre de caractères du titre
+                    if (titleAnime.length <= 22) {
+                        h1Title.textContent = titleAnime
+                    }
+                    else {
+                        h1Title.textContent = `${titleAnime.substr(0, 26)} ...`
+                    }
+
+                    //modifier le DOM
+                    const divImage = document.createElement("div")
+                    divImage.className = "divImage"
+
+                    divImage.appendChild(langue)
+                    divImage.appendChild(date)
+                    divImage.appendChild(numEpisode)
+                    divImage.appendChild(saison)
+                    divImage.appendChild(img)
+                    aAnime.appendChild(divImage)
+                    aAnime.appendChild(h1Title)
+                    if (langChoice === anime.lang.toUpperCase() || langChoice === "") {
+                        DivRootNode.appendChild(aAnime)
+
+                    }
+                }
+            })
+        }
+        //Afficher les animes
+        data()
+        //Ajouter la classe activeDay au bouton cliqué
+        const buttonsDay = document.querySelectorAll("ul button")
+        buttonsDay.forEach(button => {
+            button.addEventListener("click", (buttonSelect) => {
+                buttonsDay.forEach(button => {
+                    button.className = button.className.replace("activeDay", "")
+
+
+                })
+                buttonSelect.target.className = button.className + " activeDay"
+            })
         })
-        buttonSelect.target.className = button.className + " activeDay"
-    })
-})
-const buttonsLang = document.querySelectorAll(".langChoice button")
-buttonsLang.forEach(button => {
-    button.addEventListener("click", (buttonSelect) => {
+        const buttonsLang = document.querySelectorAll(".langChoice button")
         buttonsLang.forEach(button => {
-            button.className = button.className.replace("activeLangue", "")
+            button.addEventListener("click", (buttonSelect) => {
+                buttonsLang.forEach(button => {
+                    button.className = button.className.replace("activeLangue", "")
+                })
+                buttonSelect.target.className = button.className + " activeLangue"
+            })
         })
-        buttonSelect.target.className = button.className + " activeLangue"
-    })
-})
-//Fonction de recherche des animes en fonction du jour
-const selectDay = (day) => {
-    dayChoice = day
-}
+        //Fonction de recherche des animes en fonction du jour
+        const selectDay = (day) => {
+            dayChoice = day
+        }
     </script>
 </body>
+
 </html>
