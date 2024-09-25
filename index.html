@@ -118,12 +118,14 @@
             dayAnimes.forEach(anime => {
                 // Système d'ajout d'anime dans le DOM en fonction du jour voulu
                    if(dayChoice === "search"){
+                    
                         if(anime.title_anime.toUpperCase().replaceAll(" ", "").includes(search.toUpperCase().replaceAll(" ", ""))){
-                            animeCard(anime)
+                            animeCard(anime, "search")
+                            
                         }
                    }
                     else if (anime.jour === dayChoice) {
-                        animeCard(anime)
+                        animeCard(anime, "day")
                 }
                     
             })
@@ -156,7 +158,7 @@
             dayChoice = day
         }
 
-        const animeCard = (anime) =>{
+        const animeCard = (anime, searchOrDay) =>{
             
             const aAnime = document.createElement("a")
                         const img = document.createElement("img")
@@ -177,6 +179,9 @@
                         const saison = document.createElement("p")
                         saison.className = "saison"
                         saison.textContent = `S${anime.saison}`
+                        const jour = document.createElement("p")
+                            jour.className = "jour"
+                            jour.textContent = anime.jour
                         const langue = document.createElement("p")
                         langue.className = "langue"
                         langue.textContent = anime.lang.toUpperCase()
@@ -196,6 +201,9 @@
                         divImage.appendChild(date)
                         divImage.appendChild(numEpisode)
                         divImage.appendChild(saison)
+                        if(searchOrDay === "search"){
+                            divImage.appendChild(jour)
+                        }
                         divImage.appendChild(img)
                         aAnime.appendChild(divImage)
                         aAnime.appendChild(h1Title)

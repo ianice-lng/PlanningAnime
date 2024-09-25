@@ -69,6 +69,18 @@ img.affiche:hover{
     border-radius: 5px;
     z-index: 1;
 }
+.jour{
+    font-size: 15px;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    padding: 0px 4px;
+    text-align: center;
+    background-color: rgba(30,34,44,.9);
+    color: white;
+    border-radius: 5px;
+    z-index: 1;
+}
 .liste-button-semaine{
     display: flex;
     justify-content: center;
