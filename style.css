@@ -143,6 +143,7 @@ img.logo {
     width: 70px;
     height: 70px;
 }
+
     @media screen and (max-width: 360px) {
         .liste-title {
             font-size: 30px; /* Réduire la taille du titre pour mieux s'adapter aux petits écrans */
@@ -156,3 +157,43 @@ img.logo {
             margin: 8px ;
         }
     }
+
+
+    .search {
+        display: flex;
+        justify-content: center;
+        margin: 20px auto; /* Centrage et espace autour de la barre de recherche */
+        width: 100%; /* Prendre toute la largeur */
+        
+    }
+    
+    .search input {
+        width: 80%; /* Largeur adaptable, vous pouvez l'ajuster */
+        max-width: 500px; /* Limite de largeur maximale */
+        padding: 10px 15px;
+        border-radius: 10px;
+        border: 2px solid rgba(30,34,44,.9); /* Bordure assortie aux couleurs de votre design */
+        background-color: rgba(30,34,44,.8); /* Fond similaire à l'environnement */
+        color: #f1f1f1; /* Couleur du texte */
+        font-size: 16px;
+        outline: none; /* Retirer l'effet de focus par défaut */
+        border-color: #eb1b31; /* Couleur de bordure au focus */
+    
+        transition: all 0.3s ease; /* Transition douce pour les effets au survol */
+    }
+    
+    .search input::placeholder {
+        color: rgba(241, 241, 241, 0.7); /* Couleur de l'espace réservé (placeholder) plus claire */
+    }
+    
+    .search input:focus {
+        background-color: rgba(30,34,44,1); /* Fond légèrement plus sombre au focus */
+    }
+    
+    @media screen and (max-width: 360px) {
+        .search input {
+            width: 90%; /* Réduction de la largeur pour les petits écrans */
+            font-size: 14px;
+        }
+    }
+    
