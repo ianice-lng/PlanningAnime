@@ -9,8 +9,9 @@
     margin: 20px;
 }
 img.affiche{
-    width: auto;
+    width: 151px;
     min-height: 201px;
+    max-height: 201px;
     border-radius: 5px;
 }
 img.affiche:hover{

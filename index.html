@@ -77,6 +77,7 @@
 
         const date = new Date()
         let langChoice = ""
+        const day = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
         //Récupérer le jour actuel
         switch (date.getDay()) {
             case 0:
@@ -101,6 +102,7 @@
                 dayChoice = "samedi"
                 break
         }
+        const dayIndex = day.indexOf(dayChoice)
         const button = document.querySelector(`.${dayChoice}`)
         
         button.className = button.className + " activeDay"
@@ -115,16 +117,22 @@
                 const timeB = b.heures * 60 + b.minutes;
                 return timeA - timeB;
             });
+            let dayWeek = [];
+            for (let i = 0; i < dayIndex; i++) {
+                dayWeek.push(day[i])
+            }
+            console.log(dayWeek.includes("jeudi"))
             dayAnimes.forEach(anime => {
                 // Système d'ajout d'anime dans le DOM en fonction du jour voulu
                    if(dayChoice === "search"){
-                    
+                        if(dayWeek.includes(anime.jour)){ anime.prochain_ep++}
                         if(anime.title_anime.toUpperCase().replaceAll(" ", "").includes(search.toUpperCase().replaceAll(" ", ""))){
                             animeCard(anime, "search")
                             
                         }
                    }
                     else if (anime.jour === dayChoice) {
+                        if(dayWeek.includes(anime.jour)){ anime.prochain_ep++}
                         animeCard(anime, "day")
                 }
                     
@@ -213,6 +221,7 @@
                         } 
         }
     </script>
+    <script src="test.js"></script>
 </body>
 
 </html>
