@@ -125,14 +125,12 @@
             dayAnimes.forEach(anime => {
                 // Système d'ajout d'anime dans le DOM en fonction du jour voulu
                    if(dayChoice === "search"){
-                        if(dayWeek.includes(anime.jour)){ anime.prochain_ep++}
                         if(anime.title_anime.toUpperCase().replaceAll(" ", "").includes(search.toUpperCase().replaceAll(" ", ""))){
                             animeCard(anime, "search")
                             
                         }
                    }
                     else if (anime.jour === dayChoice) {
-                        if(dayWeek.includes(anime.jour)){ anime.prochain_ep++}
                         animeCard(anime, "day")
                 }
                     
@@ -170,7 +168,11 @@
             
             const aAnime = document.createElement("a")
                         const img = document.createElement("img")
-                        img.src = anime.affiche
+                        if(anime.affiche.includes("production")){
+                            img.src = "https://franime.fr/assets/affiche/default_affiche.png"
+                        }else{
+                            img.src = anime.affiche
+                        }
                         img.className = "affiche"
                         aAnime.className = "anime"
                         aAnime.href = anime.url_access_anime_page
