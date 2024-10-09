@@ -21,34 +21,34 @@
     <h1 class="liste-title">Liste des sorties d'anime de la semaine</h1>
     <ul class="liste-button-semaine">
         <li class="">
-            <button onclick="selectDay('lundi');data()" class="lundi">Lundi</button>
+            <button onclick="selectDay('lundi');test()" class="lundi">Lundi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('mardi');data()" class="mardi">Mardi</button>
+            <button onclick="selectDay('mardi');test()" class="mardi">Mardi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('mercredi');data()" class="mercredi">Mercredi</button>
+            <button onclick="selectDay('mercredi');test()" class="mercredi">Mercredi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('jeudi');data()" class="jeudi">Jeudi</button>
+            <button onclick="selectDay('jeudi');test()" class="jeudi">Jeudi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('vendredi');data()" class="vendredi">Vendredi</button>
+            <button onclick="selectDay('vendredi');test()" class="vendredi">Vendredi</button>
         </li>
         <li class="">
-            <button onclick="selectDay('samedi');data()" class="samedi">Samedi</button>
+            <button onclick="selectDay('samedi');test()" class="samedi">Samedi</button>
         </li>
         <li>
-            <button onclick="selectDay('dimanche');data()" class="dimanche">Dimanche</button>
+            <button onclick="selectDay('dimanche');test()" class="dimanche">Dimanche</button>
         </li>
         <li>
-            <button onclick="dayChoice = 'search';data()" class="searc">Search</button>
+            <button onclick="dayChoice = 'search';test()" class="searc">Search</button>
         </li>
     </ul>
     <div class="langChoice">
-        <button onclick="langChoice = '';data()" class="activeLangue">VOSTFR <strong>&</strong> VF</button>
-        <button onclick="langChoice = 'VO';data()">VOSTFR</button>
-        <button onclick="langChoice = 'VF';data()">VF</button>
+        <button onclick="langChoice = '';test()" class="activeLangue">VOSTFR <strong>&</strong> VF</button>
+        <button onclick="langChoice = 'VO';test()">VOSTFR</button>
+        <button onclick="langChoice = 'VF';test()">VF</button>
     </div>
     <div class="search">
         <input type="text" placeholder="Rechercher un anime" id="search">
@@ -75,7 +75,7 @@
                 buttonSearch.className = buttonSearch.className + " activeDay"
                 search = e.target.value
                 dayChoice = "search"
-                data()
+                test()
             })
 
         const date = new Date()
@@ -107,39 +107,48 @@
         }
         const dayIndex = day.indexOf(dayChoice)
         const button = document.querySelector(`.${dayChoice}`)
-        
         button.className = button.className + " activeDay"
-        //Fonction pour récupérer les données de l'API FRAnime  
-        const data = async () => {
-            const response = await fetch("https://api.franime.fr/api/calendrier_data")
-            const json = await response.json()
-            DivRootNode.textContent = ""
-            const dayAnimes = json.data.filter(anime => anime.jour === dayChoice || "search" === dayChoice);
-            dayAnimes.sort((a, b) => {
-                const timeA = a.heures * 60 + a.minutes;
-                const timeB = b.heures * 60 + b.minutes;
-                return timeA - timeB;
-            });
-            let dayWeek = [];
-            for (let i = 0; i < dayIndex; i++) {
-                dayWeek.push(day[i])
-            }
-            dayAnimes.forEach(anime => {
-                // Système d'ajout d'anime dans le DOM en fonction du jour voulu
-                   if(dayChoice === "search"){
-                        if(anime.title_anime.toUpperCase().replaceAll(" ", "").includes(search.toUpperCase().replaceAll(" ", ""))){
-                            animeCard(anime, "search")
-                            
-                        }
-                   }
-                    else if (anime.jour === dayChoice) {
-                        animeCard(anime, "day")
-                }
-                    
-            })
-        }
-        //Afficher les animes
-        data()
+
+
+             let json;
+             //Récupérer les données de l'API FRAnime
+            const test = async () => {
+             const setData = async () => {
+                 const response = await fetch("https://api.franime.fr/api/calendrier_data")
+                 json = await response.json()
+             }
+             await setData()
+
+             //Fonction pour récupérer les données de l'API FRAnime
+             const data = async () => {
+                 DivRootNode.textContent = ""
+                 const dayAnimes = await json.data.filter(anime => anime.jour === dayChoice || "search" === dayChoice);
+                 dayAnimes.sort((a, b) => {
+                     const timeA = a.heures * 60 + a.minutes;
+                     const timeB = b.heures * 60 + b.minutes;
+                     return timeA - timeB;
+                 });
+                 let dayWeek = [];
+                 for (let i = 0; i < dayIndex; i++) {
+                     dayWeek.push(day[i])
+                 }
+                 dayAnimes.forEach(anime => {
+                     // Système d'ajout d'anime dans le DOM en fonction du jour voulu
+                     if (dayChoice === "search") {
+                         if (anime.title_anime.toUpperCase().replaceAll(" ", "").includes(search.toUpperCase().replaceAll(" ", ""))) {
+                             animeCard(anime, "search")
+
+                         }
+                     } else if (anime.jour === dayChoice) {
+                         animeCard(anime, "day")
+                     }
+
+                 })
+             }
+             //Afficher les animes
+             data()
+         }
+         test()
         //Ajouter la classe activeDay au bouton cliqué
         buttonsDay.forEach(button => {
             button.addEventListener("click", (buttonSelect) => {
@@ -151,6 +160,7 @@
                 buttonSelect.target.className = button.className + " activeDay"
             })
         })
+        //Ajouter la classe activeLangue au bouton cliqué
         const buttonsLang = document.querySelectorAll(".langChoice button")
         buttonsLang.forEach(button => {
             button.addEventListener("click", (buttonSelect) => {
@@ -225,7 +235,6 @@
                         } 
         }
     </script>
-    <script src="test.js"></script>
 </body>
 
 </html>
